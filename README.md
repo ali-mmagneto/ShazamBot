@@ -7,5 +7,5 @@ Telegram Video ve Seslerinden bilinmeyen şarkıları bulan bot.
 
 /shazam
 
-# Coded by [:d]("https://t.me/mmagneto")
+# Coded by [:d](https://t.me/mmagneto)
 [:d](https://t.me/mmagneto)
