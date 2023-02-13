@@ -1,11 +1,8 @@
 from pyrogram import Client, filters
-import asyncio
 from shazamio import Shazam
 import json
 import telegraph
 from telegraph import Telegraph
-from tiktok_module import downloader
-
 
 telegraph = Telegraph()
 telegraph.create_account(short_name='deprembot')
