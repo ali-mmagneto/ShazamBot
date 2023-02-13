@@ -43,6 +43,6 @@ async def shazamtara(bot, message):
                 caption = text)
             await mes.delete()
         else:
-            await message.reply_text("`Bir ses veya videoyu yanıtla`")
+            await message.reply_text("`Bir ses veya videoyu yanıtla...`")
     except Exception as e:
         await message.reply_text(f"`{e}`")
