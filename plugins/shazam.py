@@ -1,3 +1,4 @@
+# Coded by :d (t.me/mmagneto)
 from pyrogram import Client, filters
 from shazamio import Shazam
 import json
