@@ -10,7 +10,9 @@ telegraph.create_account(short_name='deprembot')
 @Client.on_message(filters.command('shazam'))
 async def shazamtara(bot, message):
     try:
-        if message.reply_to_message.audio or message.reply_to_message.video:
+        if not message.reply_to_message:
+            await message.reply_text("`Bir ses veya videoyu yanıtla...`")
+        elif message.reply_to_message.audio or message.reply_to_message.video:
             mes = await message.reply_text("`Shazamda Arıyorum...`")
             ses = await bot.download_media(
                 message = message.reply_to_message,
@@ -39,7 +41,5 @@ async def shazamtara(bot, message):
                 photo = photo, 
                 caption = text)
             await mes.delete()
-        elif not message.reply_to_message:
-            await message.reply_text("`Bir ses veya videoyu yanıtla...`")
     except Exception as e:
         await message.reply_text(f"`{e}`")
