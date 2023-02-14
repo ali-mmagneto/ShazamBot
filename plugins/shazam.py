@@ -2,10 +2,12 @@
 from pyrogram import Client, filters
 from shazamio import Shazam
 import json
+from youtube_search import YoutubeSearch
 import telegraph
 from telegraph import Telegraph
 import requests
 import os, youtube_dl, requests, time
+
 
 telegraph = Telegraph()
 telegraph.create_account(short_name='ShazamBot')
