@@ -43,18 +43,6 @@ async def shazamtara(bot, message):
                 photo = photo, 
                 caption = text)
             await mes.delete()
-        elif message.reply_to_message.text:
-            linkim = message.reply_to_message.text
-            print(linkim)
-            url = "https://tiktok-download-video-no-watermark.p.rapidapi.com/tiktok/info"
-            querystring = {"url": f"{linkim}"}
-
-            headers = {
-                    'x-rapidapi-host': "tiktok-info.p.rapidapi.com",
-                    'x-rapidapi-key': "f9d65af755msh3c8cac23b52a5eep108a33jsnbf7de971bb72"
-            }
-            response = requests.request("GET", url, headers=headers, params=querystring)
-            print(response.text)
         else:
             await message.reply_text("`Bir ses veya videoyu yanıtla...`")
     except Exception as e:
