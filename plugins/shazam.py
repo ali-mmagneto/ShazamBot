@@ -63,7 +63,7 @@ async def shazamtara(bot, message):
                     thumbnail = results[0]["thumbnails"][0]
                     duration = results[0]["duration"]
                     views = results[0]["views"]
-                    thumb_name = f'thumb{message.message_id}.jpg'
+                    thumb_name = f'thumb{message.id}.jpg'
                     thumb = requests.get(thumbnail, allow_redirects=True)
                     open(thumb_name, 'wb').write(thumb.content)
                 except Exception as e:
@@ -82,7 +82,7 @@ async def shazamtara(bot, message):
                 for i in range(len(dur_arr)-1, -1, -1):
                     dur += (int(dur_arr[i]) * secmul)
                     secmul *= 60
-                message.reply_audio(audio_file, caption=rep, quote=False, title=title, duration=dur, thumb=thumb_name, performer="ShazamBot")
+                await message.reply_audio(audio_file, caption=rep, quote=False, title=title, duration=dur, thumb=thumb_name, performer="ShazamBot")
             except Exception as e:
                 print(e)
         else:
