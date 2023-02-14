@@ -7,7 +7,7 @@ from telegraph import Telegraph
 import requests
 
 telegraph = Telegraph()
-telegraph.create_account(short_name='deprembot')
+telegraph.create_account(short_name='ShazamBot')
 
 @Client.on_message(filters.command('shazam'))
 async def shazamtara(bot, message):
