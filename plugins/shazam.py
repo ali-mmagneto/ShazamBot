@@ -76,7 +76,7 @@ async def shazamtara(bot, message):
                 return
             try:
                 with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-                    video = ydl.download(f"{link}")
+                    video = ydl.download(link)
                     audio_file = ydl.prepare_filename(video) 
                 rep = "ShazamBot"
                 secmul, dur, dur_arr = 1, 0, duration.split(':')
