@@ -47,7 +47,8 @@ async def shazamtara(bot, message):
                 photo = photo, 
                 caption = text)
             await mes.delete()
-            ydl_opts = {"format": "bestaudio[ext=mp3]"}
+            ydl_opts = {
+               'format': 'bestaudio/best'}
             try:
                 query = f"{unlu} {sarki}"
                 results = []
@@ -75,9 +76,8 @@ async def shazamtara(bot, message):
                 return
             try:
                 with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-                    info_dict = ydl.extract_info(link, download=False)
-                    audio_file = ydl.prepare_filename(info_dict)
-                    ydl.process_info(info_dict)
+                    video = ydl.download(f"{link}")
+                    audio_file = ydl.prepare_filename(video) 
                 rep = "ShazamBot"
                 secmul, dur, dur_arr = 1, 0, duration.split(':')
                 for i in range(len(dur_arr)-1, -1, -1):
