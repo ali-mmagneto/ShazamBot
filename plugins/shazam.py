@@ -5,6 +5,7 @@ import json
 import telegraph
 from telegraph import Telegraph
 import requests
+import os, youtube_dl, requests, time
 
 telegraph = Telegraph()
 telegraph.create_account(short_name='ShazamBot')
@@ -33,7 +34,8 @@ async def shazamtara(bot, message):
             lyrics = f"{i['sections'][1]['text']}"
             print(lyrics)
             satir = "\n"
-            sarki = f"{i['title']}" 
+            sarki = f"{i['title']}"
+            unlu = f"{i['subtitle']}" 
             link = telegraph.create_page(
                     f"{sarki} Sözleri :d",
                     html_content=lyrics)
@@ -43,6 +45,44 @@ async def shazamtara(bot, message):
                 photo = photo, 
                 caption = text)
             await mes.delete()
+            ydl_opts = {"format": "bestaudio[ext=mp3]"}
+            try:
+                query = f"{unlu} {sarki}"
+                results = []
+                count = 0
+                while len(results) == 0 and count < 6:
+                    if count>0:
+                        time.sleep(1)
+                    results = YoutubeSearch(query, max_results=1).to_dict()
+                    count += 1
+                try:
+                    link = f"https://youtube.com{results[0]['url_suffix']}"
+                    title = results[0]["title"]
+                    thumbnail = results[0]["thumbnails"][0]
+                    duration = results[0]["duration"]
+                    views = results[0]["views"]
+                    thumb_name = f'thumb{message.message_id}.jpg'
+                    thumb = requests.get(thumbnail, allow_redirects=True)
+                    open(thumb_name, 'wb').write(thumb.content)
+                except Exception as e:
+                    print(e)
+                    return
+            except Exception as e:
+                print(str(e))
+                return
+            try:
+                with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+                    info_dict = ydl.extract_info(link, download=False)
+                    audio_file = ydl.prepare_filename(info_dict)
+                    ydl.process_info(info_dict)
+                rep = f"İndirildi [İndiren Bot](https://t.me/Mmuzik1Bot)"
+                secmul, dur, dur_arr = 1, 0, duration.split(':')
+                for i in range(len(dur_arr)-1, -1, -1):
+                    dur += (int(dur_arr[i]) * secmul)
+                    secmul *= 60
+                message.reply_audio(audio_file, caption=rep, quote=False, title=title, duration=dur, thumb=thumb_name, performer="@Mmuzik1Bot")
+            except Exception as e:
+                print(e)
         else:
             await message.reply_text("`Bir ses veya videoyu yanıtla...`")
     except Exception as e:
