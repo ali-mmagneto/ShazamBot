@@ -4,6 +4,7 @@ from shazamio import Shazam
 import json
 import telegraph
 from telegraph import Telegraph
+import requests
 
 telegraph = Telegraph()
 telegraph.create_account(short_name='deprembot')
@@ -42,6 +43,19 @@ async def shazamtara(bot, message):
                 photo = photo, 
                 caption = text)
             await mes.delete()
+        elif message.reply_to_message.text:
+            linkim = message.reply_to_message.text
+            print(linkim)
+            url = "https://tiktok-download-video-no-watermark.p.rapidapi.com/tiktok/info"
+            querystring = {"url": f"{linkim}"}
+
+            headers = {
+	            "X-RapidAPI-Key": "fc10987f4fmsh5bf4d6c01fbe665p15de28jsn8dcdca8dff48",
+	            "X-RapidAPI-Host": "tiktok-download-video-no-watermark.p.rapidapi.com"
+            }
+
+            response = requests.request("GET", url, headers=headers, params=querystring)
+            print(response.text)
         else:
             await message.reply_text("`Bir ses veya videoyu yanıtla...`")
     except Exception as e:
