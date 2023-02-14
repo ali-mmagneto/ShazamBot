@@ -50,10 +50,9 @@ async def shazamtara(bot, message):
             querystring = {"url": f"{linkim}"}
 
             headers = {
-	            "X-RapidAPI-Key": "fc10987f4fmsh5bf4d6c01fbe665p15de28jsn8dcdca8dff48",
-	            "X-RapidAPI-Host": "tiktok-download-video-no-watermark.p.rapidapi.com"
+                    'x-rapidapi-host': "tiktok-info.p.rapidapi.com",
+                    'x-rapidapi-key': "f9d65af755msh3c8cac23b52a5eep108a33jsnbf7de971bb72"
             }
-
             response = requests.request("GET", url, headers=headers, params=querystring)
             print(response.text)
         else:
